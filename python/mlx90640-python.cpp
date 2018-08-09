@@ -112,11 +112,11 @@ int setup(int fps){
 	return 0;
 }
 
-void cleanup(){
+void cleanup(void){
 	bcm2835_close();
 }
 
-float * get_frame(){
+float * get_frame(void){
 	int retries = 6;
 	int subpage;
 	bool subpages[2] = {0,0};

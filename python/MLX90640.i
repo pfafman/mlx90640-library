@@ -2,9 +2,7 @@
 %include "stdint.i"
 
 %{
-int setup(int fps);
-void cleanup();
-float * get_frame();
+#include "mlx90640-python.h"
 %}
 
 %typemap(out) float *get_frame %{
@@ -15,5 +13,5 @@ float * get_frame();
 %}
 
 int setup(int fps);
-void cleanup();
-float * get_frame();
+void cleanup(void);
+float * get_frame(void);
