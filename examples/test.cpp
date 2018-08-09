@@ -44,8 +44,8 @@ int main(){
     MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
     MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 0);
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
-    //MLX90640_SetChessMode(MLX_I2C_ADDR);
-    MLX90640_SetInterleavedMode(MLX_I2C_ADDR);
+    MLX90640_SetChessMode(MLX_I2C_ADDR);
+    //MLX90640_SetInterleavedMode(MLX_I2C_ADDR);
     //MLX90640_SetSubPage(MLX_I2C_ADDR, 0);
     printf("Configured...\n");
 
@@ -62,17 +62,17 @@ int main(){
     int subpage;
     static float mlx90640To[768];
     while (1){
-	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
-	state = !state;
-	//printf("State: %d \n", state);
-	pulse();
+    	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
+    	state = !state;
+    	//printf("State: %d \n", state);
+    	pulse();
         MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
-	pulse();
+	    pulse();
         eTa = MLX90640_GetTa(frame, &mlx90640);
         subpage = MLX90640_GetSubPageNumber(frame);
         MLX90640_CalculateTo(frame, &mlx90640, emissivity, eTa, mlx90640To);
         printf("Subpage: %d\n", subpage);
-	//MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
+	   //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
 
         for(int x = 0; x < 32; x++){
             for(int y = 0; y < 24; y++){
@@ -88,16 +88,16 @@ int main(){
                 else if (val > 26.0){
                     printf(ANSI_COLOR_YELLOW FMT_STRING ANSI_COLOR_YELLOW, val);
                 }
-		else if ( val > 20.0 ){
-		    printf(ANSI_COLOR_NONE FMT_STRING ANSI_COLOR_RESET, val);
-		}
-		else if (val > 17.0) {
+		        else if ( val > 20.0 ){
+        		    printf(ANSI_COLOR_NONE FMT_STRING ANSI_COLOR_RESET, val);
+        		}
+        		else if (val > 17.0) {
                     printf(ANSI_COLOR_GREEN FMT_STRING ANSI_COLOR_RESET, val);
-		}
-		else if (val > 10.0) {
+        		}
+        		else if (val > 10.0) {
                     printf(ANSI_COLOR_CYAN FMT_STRING ANSI_COLOR_RESET, val);
-		}
-		else {
+        		}
+        		else {
                     printf(ANSI_COLOR_BLUE FMT_STRING ANSI_COLOR_RESET, val);
                 }
             }
