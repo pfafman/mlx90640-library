@@ -44,7 +44,8 @@ int main(){
     MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
     MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 0);
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
-    MLX90640_SetChessMode(MLX_I2C_ADDR);
+    //MLX90640_SetChessMode(MLX_I2C_ADDR);
+    MLX90640_SetInterleavedMode(MLX_I2C_ADDR);
     //MLX90640_SetSubPage(MLX_I2C_ADDR, 0);
     printf("Configured...\n");
 
