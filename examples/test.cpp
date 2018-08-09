@@ -20,11 +20,13 @@
 #define FMT_STRING "\u2588\u2588"
 
 #define MLX_I2C_ADDR 0x33
+
 void pulse(){
 	bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, 1);
 	std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, 0);
 }
+
 int main(){
     int state = 0;
     printf("Starting...\n");
@@ -64,7 +66,7 @@ int main(){
     while (1){
     	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
     	state = !state;
-    	//printf("State: %d \n", state);
+    	printf("State: %d \n", state);
     	pulse();
         MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
 	    pulse();
