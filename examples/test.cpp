@@ -106,6 +106,7 @@ int main(){
 	      //std::this_thread::sleep_for(std::chrono::milliseconds(20));
         printf("\x1b[33A");
     }
+    printf("Close\n");
     bcm2835_close();
     return 0;
 }
