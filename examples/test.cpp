@@ -39,7 +39,6 @@ int main(){
 
     std::fstream fs;
 
-
     bcm2835_init();
     bcm2835_gpio_fsel(RPI_BPLUS_GPIO_J8_07, BCM2835_GPIO_FSEL_OUTP);
 
@@ -54,6 +53,7 @@ int main(){
     paramsMLX90640 mlx90640;
     MLX90640_DumpEE(MLX_I2C_ADDR, eeMLX90640);
     MLX90640_ExtractParameters(eeMLX90640, &mlx90640);
+    print("kVdd %d\n", mlx90640.kVdd)
     int refresh = MLX90640_GetRefreshRate(MLX_I2C_ADDR);
     printf("Refresh rate %d\n", refresh);
     int resolution = MLX90640_GetCurResolution(MLX_I2C_ADDR);
@@ -63,7 +63,7 @@ int main(){
     int frames = 30;
     int subpage;
     static float mlx90640To[768];
-    while (1){
+    while (0){
     	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
     	state = !state;
     	printf("State: %d \n", state);
@@ -74,8 +74,8 @@ int main(){
         subpage = MLX90640_GetSubPageNumber(frame);
         MLX90640_CalculateTo(frame, &mlx90640, emissivity, eTa, mlx90640To);
         printf("Subpage: %d\n", subpage);
-	   //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
-        printf("\n\n\n");
+	    //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
+        //printf("\n\n\n");
         for(int x = 0; x < 32; x++){
             for(int y = 0; y < 24; y++){
                 //std::cout << image[32 * y + x] << ",";
