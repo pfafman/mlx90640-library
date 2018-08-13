@@ -53,7 +53,33 @@ int main(){
     paramsMLX90640 mlx90640;
     MLX90640_DumpEE(MLX_I2C_ADDR, eeMLX90640);
     MLX90640_ExtractParameters(eeMLX90640, &mlx90640);
+    
     printf("kVdd %d\n", mlx90640.kVdd);
+    printf("vdd25 %d", mlx90640.vdd25);
+    printf("KvPTAT %f", mlx90640.KvPTAT);
+    printf("KtPTAT %f", mlx90640.KtPTAT);
+    printf("vPTAT25 %d", mlx90640.vPTAT25);
+    printf("alphaPTAT %f", mlx90640.alphaPTAT);
+    printf("gainEE %d", mlx90640.gainEE);
+    printf("tgc %f", mlx90640.tgc);
+    printf("cpKv %f", mlx90640.cpKv);
+    printf("cpKta %f", mlx90640.cpKta);
+    printf("resolutionEE %d", mlx90640.resolutionEE);
+    printf("calibrationModeEE %d", mlx90640.calibrationModeEE);
+    printf("KsTa %f", mlx90640.KsTa);
+    printf("ksTo %f", mlx90640.ksTo[0]);
+    printf("ct %d", mlx90640.ct[0]);
+    printf("alpha %f", mlx90640.alpha[0]);
+    printf("offset %d", mlx90640.offset[0]);
+    printf("kta %f", mlx90640.kta[0]);
+    printf("kv %f", mlx90640.kv[0]);
+    printf("cpAlpha %f", mlx90640.cpAlpha[0]);
+    printf("cpOffset %d", mlx90640.cpOffset[0]);
+    printf("ilChessC %f", mlx90640.ilChessC[0]);
+    printf("brokenPixels %d", mlx90640.brokenPixels[0]);
+    printf("outlierPixels %d", mlx90640.outlierPixels[0]);
+
+
     int refresh = MLX90640_GetRefreshRate(MLX_I2C_ADDR);
     printf("Refresh rate %d\n", refresh);
     int resolution = MLX90640_GetCurResolution(MLX_I2C_ADDR);
@@ -63,7 +89,7 @@ int main(){
     int frames = 30;
     int subpage;
     static float mlx90640To[768];
-    while (1){
+    while (0){
     	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
     	state = !state;
     	printf("State: %d \n", state);
