@@ -69,11 +69,20 @@ int main(){
     printf("KsTa %f\n", mlx90640.KsTa);
     printf("ksTo %f\n", mlx90640.ksTo[0]);
     printf("ct %d\n", mlx90640.ct[0]);
-    printf("alpha %f\n", mlx90640.alpha[0]);
+    
+    printf("alpha");
+    for(int i=0; i<768; i++) {
+        printf(" %f", mlx90640.alpha[0]);
+    }
+    printf("\n");
+    
     printf("offset %d\n", mlx90640.offset[0]);
     printf("kta %f\n", mlx90640.kta[0]);
     printf("kv %f\n", mlx90640.kv[0]);
-    printf("cpAlpha %f\n", mlx90640.cpAlpha[0]);
+    
+    printf("cpAlpha[0] %f\n", mlx90640.cpAlpha[0]);
+    printf("cpAlpha[1] %f\n", mlx90640.cpAlpha[1]);
+
     printf("cpOffset %d\n", mlx90640.cpOffset[0]);
     printf("ilChessC %f\n", mlx90640.ilChessC[0]);
     printf("brokenPixels %d\n", mlx90640.brokenPixels[0]);
