@@ -53,7 +53,7 @@ int main(){
     paramsMLX90640 mlx90640;
     MLX90640_DumpEE(MLX_I2C_ADDR, eeMLX90640);
     MLX90640_ExtractParameters(eeMLX90640, &mlx90640);
-    printf("kVdd %d\n", mlx90640.kVdd)
+    printf("kVdd %d\n", mlx90640.kVdd);
     int refresh = MLX90640_GetRefreshRate(MLX_I2C_ADDR);
     printf("Refresh rate %d\n", refresh);
     int resolution = MLX90640_GetCurResolution(MLX_I2C_ADDR);
