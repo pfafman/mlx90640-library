@@ -63,7 +63,7 @@ int main(){
     int frames = 30;
     int subpage;
     static float mlx90640To[768];
-    while (0){
+    while (1){
     	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
     	state = !state;
     	printf("State: %d \n", state);
