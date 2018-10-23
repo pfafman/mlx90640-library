@@ -37,3 +37,5 @@ clean:
 	rm -f *.so
 	rm -f test
 	rm -f *.a
+	rm -f functions/*.o
+	
