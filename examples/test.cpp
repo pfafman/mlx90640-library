@@ -29,7 +29,7 @@ void pulse(){
 
 int main(){
     int state = 0;
-    printf("Starting...\n");
+    printf("Starting  (RUNNING AS ROOT?) ...\n");
     static uint16_t eeMLX90640[832];
     float emissivity = 1;
     uint16_t frame[834];
@@ -51,7 +51,7 @@ int main(){
 
     printf("MLX90640_SetRefreshRate\n");
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
-    
+
     printf("MLX90640_SetChessMode\n");
     MLX90640_SetChessMode(MLX_I2C_ADDR);
     //MLX90640_SetInterleavedMode(MLX_I2C_ADDR);
