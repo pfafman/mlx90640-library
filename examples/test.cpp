@@ -115,8 +115,7 @@ int main(){
         eTa = MLX90640_GetTa(frame, &mlx90640);
         subpage = MLX90640_GetSubPageNumber(frame);
         MLX90640_CalculateTo(frame, &mlx90640, emissivity, eTa, mlx90640To);
-        printf("Subpage: %d\n", subpage);
-	    //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
+        //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
         //printf("\n\n\n");
         for(int x = 0; x < 32; x++){
             for(int y = 0; y < 24; y++){
