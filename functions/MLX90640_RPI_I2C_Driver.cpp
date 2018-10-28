@@ -28,6 +28,7 @@ void MLX90640_I2CInit()
 int MLX90640_I2CRead(uint8_t slaveAddr, uint16_t startAddress, uint16_t nMemAddressRead, uint16_t *data)
 {
     if (!init) {
+        printf("bcm2835_ini\n");
         bcm2835_init();
     	bcm2835_i2c_begin();
         bcm2835_i2c_set_baudrate(400000);
