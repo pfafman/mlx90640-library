@@ -30,6 +30,13 @@ interp: examples/interp.o examples/interpolate.o examples/fb.o libMLX90640_API.a
 video: examples/video.o examples/fb.o libMLX90640_API.a
 	$(CXX) -L/home/pi/mlx90640-library $^ -o $@ -lbcm2835 -lavcodec -lavutil -lavformat
 
+libMLX90640.so: mlxWrapper.o functions/MLX90640_API.o functions/MLX90640_RPI_I2C_Driver.o 
+	g++ -fPIC -shared $^ -o $@ -lbcm2835
+
+
+libTest.so: testing/testFunc.o
+	g++ -fPIC -shared $^ -o $@
+
 clean:
 	rm -f test step fbuf interp video
 	rm -f examples/*.o

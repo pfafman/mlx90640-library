@@ -8,3 +8,5 @@ test
 interp
 video
 python/build
+._*
+testing

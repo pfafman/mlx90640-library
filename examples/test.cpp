@@ -4,8 +4,12 @@
 #include <fstream>
 #include <chrono>
 #include <thread>
+#include <chrono> 
 #include "headers/MLX90640_API.h"
 #include "bcm2835.h"
+
+using namespace std;
+using namespace std::chrono; 
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
@@ -33,9 +37,9 @@ int main(){
     static uint16_t eeMLX90640[832];
     float emissivity = 1;
     uint16_t frame[834];
-    static float image[768];
+    //static float image[768];
     float eTa;
-    static uint16_t data[768*sizeof(float)];
+    //static uint16_t data[768*sizeof(float)];
 
     std::fstream fs;
 
@@ -51,6 +55,9 @@ int main(){
 
     printf("MLX90640_SetRefreshRate\n");
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
+
+    printf("MLX90640_SetResolution\n");
+    MLX90640_SetResolution(MLX_I2C_ADDR, 0b011);
 
     printf("MLX90640_SetChessMode\n");
     MLX90640_SetChessMode(MLX_I2C_ADDR);
@@ -103,50 +110,66 @@ int main(){
     printf("Resolution %d\n", resolution);
     printf("EE Dumped...\n");
 
-    int frames = 30;
     int subpage;
+    float minTemp = 0;
+    float maxTemp = 100;
+    int code = 0;
     static float mlx90640To[768];
     while (1){
-    	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
+        auto start = high_resolution_clock::now(); 
+        minTemp = 100;
+        maxTemp = 0;
     	state = !state;
     	pulse();
-        MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
+        code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
 	    pulse();
         eTa = MLX90640_GetTa(frame, &mlx90640);
         subpage = MLX90640_GetSubPageNumber(frame);
         MLX90640_CalculateTo(frame, &mlx90640, emissivity, eTa, mlx90640To);
-        //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
+        MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
         //printf("\n\n\n");
         for(int x = 0; x < 32; x++){
             for(int y = 0; y < 24; y++){
                 //std::cout << image[32 * y + x] << ",";
                 float val = mlx90640To[32 * (23-y) + x];
                 if(val > 99.99) val = 99.99;
+
+                if (val < minTemp) {
+                    minTemp = val;
+                }
+
+                if (val > maxTemp) {
+                    maxTemp = val;
+                }
+            
                 if(val > 32.0){
                     printf(ANSI_COLOR_MAGENTA FMT_STRING ANSI_COLOR_RESET, val);
                 }
-                else if(val > 29.0){
+                else if(val > 30.0){
                     printf(ANSI_COLOR_RED FMT_STRING ANSI_COLOR_RESET, val);
                 }
-                else if (val > 26.0){
+                else if (val > 25.0){
                     printf(ANSI_COLOR_YELLOW FMT_STRING ANSI_COLOR_YELLOW, val);
                 }
 		        else if ( val > 20.0 ){
-        		    printf(ANSI_COLOR_NONE FMT_STRING ANSI_COLOR_RESET, val);
+        		    printf(ANSI_COLOR_GREEN FMT_STRING ANSI_COLOR_RESET, val);
         		}
-        		else if (val > 17.0) {
-                    printf(ANSI_COLOR_GREEN FMT_STRING ANSI_COLOR_RESET, val);
+        		else if (val > 15.0) {
+                    printf(ANSI_COLOR_BLUE FMT_STRING ANSI_COLOR_RESET, val);
         		}
         		else if (val > 10.0) {
                     printf(ANSI_COLOR_CYAN FMT_STRING ANSI_COLOR_RESET, val);
         		}
         		else {
-                    printf(ANSI_COLOR_BLUE FMT_STRING ANSI_COLOR_RESET, val);
+                    printf(ANSI_COLOR_NONE FMT_STRING ANSI_COLOR_RESET, val);
                 }
             }
             std::cout << std::endl;
         }
-	      //std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        auto stop = high_resolution_clock::now(); 
+        auto duration = duration_cast<milliseconds>(stop - start); 
+	    printf("[%d] Rate: %d Temp: %02.1f - %02.1f (%.0f)    ", code, 1000/duration.count(), minTemp, maxTemp, (maxTemp-minTemp));
+        std::cout << std::endl;
         printf("\x1b[33A");
     }
     printf("Close\n");
