@@ -45,10 +45,13 @@ int main(){
 
     printf("MLX90640_SetDeviceMode\n");
     MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
+
     printf("MLX90640_SetSubPageRepeat\n");
     MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 0);
+
     printf("MLX90640_SetRefreshRate\n");
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
+    
     printf("MLX90640_SetChessMode\n");
     MLX90640_SetChessMode(MLX_I2C_ADDR);
     //MLX90640_SetInterleavedMode(MLX_I2C_ADDR);
