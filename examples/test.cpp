@@ -5,9 +5,7 @@
 #include <chrono>
 #include <thread>
 #include "headers/MLX90640_API.h"
-//#include "bcm2835.h"
-#include <wiringPiI2C.h>
-
+#include "bcm2835.h"
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
@@ -41,16 +39,9 @@ int main(){
 
     std::fstream fs;
 
-    int fd;
-    fd = wiringPiI2CSetup(MLX_I2C_ADDR);
-    
-    cout << "Init result: "<< fd << endl;
-
-
-    exit();
-    // printf("bcm2835_init\n");
-    // bcm2835_init();
-    // bcm2835_gpio_fsel(RPI_BPLUS_GPIO_J8_07, BCM2835_GPIO_FSEL_OUTP);
+    printf("bcm2835_init\n");
+    bcm2835_init();
+    bcm2835_gpio_fsel(RPI_BPLUS_GPIO_J8_07, BCM2835_GPIO_FSEL_OUTP);
 
     printf("MLX90640_SetDeviceMode\n");
     MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
