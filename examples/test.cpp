@@ -109,7 +109,6 @@ int main(){
     while (1){
     	//bcm2835_gpio_write(RPI_BPLUS_GPIO_J8_07, state);
     	state = !state;
-    	printf("State: %d \n", state);
     	pulse();
         MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
 	    pulse();
