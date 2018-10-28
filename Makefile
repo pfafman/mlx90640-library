@@ -16,7 +16,7 @@ test.o step.o fbuf.o interp.o video.o : CXXFLAGS+=-std=c++11
 test step fbuf interp video : CXXFLAGS+=-I.
 
 test: examples/test.o libMLX90640_API.a
-	$(CXX) -L/home/pi/mlx90640-library $^ -o $@ -lwiringPi
+	$(CXX) -L/home/pi/mlx90640-library $^ -o $@ -lbcm2835
 
 step: examples/step.o libMLX90640_API.a
 	$(CXX) -L/home/pi/mlx90640-library $^ -o $@ -lbcm2835
