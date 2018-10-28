@@ -37,6 +37,9 @@ libMLX90640.so: mlxWrapper.o functions/MLX90640_API.o functions/MLX90640_RPI_I2C
 libTest.so: testing/testFunc.o
 	g++ -fPIC -shared $^ -o $@
 
+install: libMLX90640.so
+	cp libMLX90640.so /usr/local/lib/.
+
 clean:
 	rm -f test step fbuf interp video
 	rm -f examples/*.o
