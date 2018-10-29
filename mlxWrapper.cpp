@@ -32,6 +32,10 @@ extern "C" {
     //bcm2835_i2c_setSlaveAddress(0x33);
   }
 
+  void bcmClose(void) {
+    bcm2835_close();
+  }
+  
   int setDeviceMode(uint8_t slaveAddr, uint8_t deviceMode) {
     MLX90640_SetDeviceMode(slaveAddr, deviceMode);
   }
