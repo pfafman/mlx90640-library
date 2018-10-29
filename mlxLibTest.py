@@ -13,7 +13,7 @@ print(mlxLib.initAll())
 print("resolution", mlxLib.getResolution(MLX_I2C_ADDR))
 print("refresh rate:", mlxLib.getRefreshRate(MLX_I2C_ADDR))
 
-ta = (c_float)()
+ta = 0
 image = (c_float*768)()
 print(list(image))
 
