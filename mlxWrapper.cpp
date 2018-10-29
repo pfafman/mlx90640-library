@@ -136,7 +136,7 @@ extern "C" {
     return libInit;
   }
 
-  int getTemperatureImage(float emissivity, float *image) {
+  int getTemperatureImage(float emissivity, float *ta, float *image) {
     uint16_t frame[834];
     int code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
     float eTa = MLX90640_GetTa(frame, &mlx90640);
@@ -147,6 +147,7 @@ extern "C" {
     
     MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
     
+    &ta = eTa
     // int i;
     // for(i=0;i<768;i++)
     //   image[i] = frame[i];
