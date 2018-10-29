@@ -21,5 +21,5 @@ mlxLib.getTemperatureImage.argtypes = [c_float, POINTER(c_float), POINTER(c_floa
 
 while (True):
   code = mlxLib.getTemperatureImage(1.0, byref(ta), image)
-  print("Code %d Ta %f" % (code,ta.value))
+  print("Code %d Ta %.2f" % (code,ta.value))
   print(list(image))
