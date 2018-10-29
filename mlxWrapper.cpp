@@ -35,7 +35,7 @@ extern "C" {
   void bcmClose(void) {
     bcm2835_close();
   }
-  
+
   int setDeviceMode(uint8_t slaveAddr, uint8_t deviceMode) {
     MLX90640_SetDeviceMode(slaveAddr, deviceMode);
   }
@@ -145,11 +145,11 @@ extern "C" {
     int code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
     float eTa = MLX90640_GetTa(frame, &mlx90640);
     
-    int subpage = MLX90640_GetSubPageNumber(frame);
+    //int subpage = MLX90640_GetSubPageNumber(frame);
     
     MLX90640_CalculateTo(frame, &mlx90640, emissivity, eTa, image);
     
-    MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
+    //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
     
     *ta = eTa;
     // int i;
