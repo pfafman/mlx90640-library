@@ -147,7 +147,7 @@ extern "C" {
     
     MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
     
-    &ta = eTa
+    *ta = eTa;
     // int i;
     // for(i=0;i<768;i++)
     //   image[i] = frame[i];
