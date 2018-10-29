@@ -1,6 +1,7 @@
 
 
 #include <stdint.h>
+#include <unistd.h>
 
 #include "headers/MLX90640_API.h"
 #include "bcm2835.h"
@@ -125,6 +126,8 @@ extern "C" {
   // Upper Calls to make things easier
 
   int initAll(void) {
+    bcm2835_close();
+    sleep(1);
     bcm2835_init();
     MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
     MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 1);
