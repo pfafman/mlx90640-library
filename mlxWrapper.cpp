@@ -127,7 +127,7 @@ extern "C" {
   int initAll(void) {
     bcm2835_init();
     MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
-    MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 0);
+    MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 1);
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
     MLX90640_SetResolution(MLX_I2C_ADDR, 0b011);
     MLX90640_SetChessMode(MLX_I2C_ADDR);
