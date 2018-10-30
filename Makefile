@@ -33,6 +33,7 @@ video: examples/video.o examples/fb.o libMLX90640_API.a
 libMLX90640.so: mlxWrapper.o functions/MLX90640_API.o functions/MLX90640_RPI_I2C_Driver.o 
 	g++ -fPIC -shared $^ -o $@ -lbcm2835
 
+lib: libMLX90640.so
 
 libTest.so: testing/testFunc.o
 	g++ -fPIC -shared $^ -o $@
