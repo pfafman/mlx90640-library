@@ -38,7 +38,7 @@ lib: libMLX90640.so
 libTest.so: testing/testFunc.o
 	g++ -fPIC -shared $^ -o $@
 
-install: libMLX90640.so
+install: lib
 	cp libMLX90640.so /usr/local/lib/.
 
 clean:
