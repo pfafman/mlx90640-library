@@ -130,7 +130,7 @@ extern "C" {
     sleep(1);
     bcm2835_init();
     MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
-    MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 1);
+    MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 0);
     MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
     MLX90640_SetResolution(MLX_I2C_ADDR, 0b011);
     MLX90640_SetChessMode(MLX_I2C_ADDR);
@@ -148,11 +148,11 @@ extern "C" {
     int code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
     float eTa = MLX90640_GetTa(frame, &mlx90640);
     
-    //int subpage = MLX90640_GetSubPageNumber(frame);
+    int subpage = MLX90640_GetSubPageNumber(frame);
     
     MLX90640_CalculateTo(frame, &mlx90640, emissivity, eTa, image);
     
-    //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
+    MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
     
     *ta = eTa;
     // int i;
