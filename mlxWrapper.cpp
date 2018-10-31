@@ -17,6 +17,7 @@ Notes:
 extern "C" {
 
   #define MLX_I2C_ADDR 0x33
+  #define TA_SHIFT 8 //Default shift for MLX90640 in open air
 
   // Internals
   static int libInit = 0;
@@ -129,14 +130,16 @@ extern "C" {
     bcm2835_close();
     sleep(1);
     bcm2835_init();
-    MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
-    MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 0);
-    MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
-    MLX90640_SetResolution(MLX_I2C_ADDR, 0b011);
-    MLX90640_SetChessMode(MLX_I2C_ADDR);
-
+    
     MLX90640_DumpEE(MLX_I2C_ADDR, eeMLX90640);
     MLX90640_ExtractParameters(eeMLX90640, &mlx90640);
+
+    //MLX90640_SetDeviceMode(MLX_I2C_ADDR, 0);
+    //MLX90640_SetSubPageRepeat(MLX_I2C_ADDR, 0);
+    //MLX90640_SetRefreshRate(MLX_I2C_ADDR, 0b110);
+    //MLX90640_SetResolution(MLX_I2C_ADDR, 0b011);
+    //MLX90640_SetChessMode(MLX_I2C_ADDR);
+
 
     libInit = 1;
 
@@ -145,15 +148,21 @@ extern "C" {
 
   int getTemperatureImage(float emissivity, float *ta, float *image) {
     uint16_t frame[834];
-    int code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
-    float eTa = MLX90640_GetTa(frame, &mlx90640);
     
-    int subpage = MLX90640_GetSubPageNumber(frame);
-    
-    MLX90640_CalculateTo(frame, &mlx90640, emissivity, eTa, image);
-    
-    MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
-    
+    for (int i = 0 ; i < 2 ; i++) {
+      int code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
+
+      float vdd = MLX90640_GetVdd(frame, &mlx90640);  // Used?
+      float eTa = MLX90640_GetTa(frame, &mlx90640);
+      
+      float tr = Ta - TA_SHIFT; //Reflected temperature based on the sensor ambient temperature
+      //int subpage = MLX90640_GetSubPageNumber(frame);
+      
+      MLX90640_CalculateTo(frame, &mlx90640, emissivity, tr, image);
+      
+      //MLX90640_SetSubPage(MLX_I2C_ADDR,!subpage);
+    }
+
     *ta = eTa;
     // int i;
     // for(i=0;i<768;i++)
