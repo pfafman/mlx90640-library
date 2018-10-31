@@ -153,9 +153,9 @@ extern "C" {
       int code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
 
       float vdd = MLX90640_GetVdd(frame, &mlx90640);  // Used?
-      float eTa = MLX90640_GetTa(frame, &mlx90640);
+      float ambientTemp = MLX90640_GetTa(frame, &mlx90640);
       
-      float tr = Ta - TA_SHIFT; //Reflected temperature based on the sensor ambient temperature
+      float tr =  ambientTemp- TA_SHIFT; //Reflected temperature based on the sensor ambient temperature
       //int subpage = MLX90640_GetSubPageNumber(frame);
       
       MLX90640_CalculateTo(frame, &mlx90640, emissivity, tr, image);
