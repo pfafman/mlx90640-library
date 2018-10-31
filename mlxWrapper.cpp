@@ -17,7 +17,8 @@ Notes:
 extern "C" {
 
   #define MLX_I2C_ADDR 0x33
-  #define TA_SHIFT 8 //Default shift for MLX90640 in open air
+  //Default shift for MLX90640 in open air
+  #define TA_SHIFT 8
 
   // Internals
   static int libInit = 0;
@@ -155,10 +156,9 @@ extern "C" {
     for (int i = 0 ; i < 2 ; i++) {
       code = MLX90640_GetFrameData(MLX_I2C_ADDR, frame);
 
-      float vdd = MLX90640_GetVdd(frame, &mlx90640);  // Used?
       ambientTemp = MLX90640_GetTa(frame, &mlx90640);
       
-      float tr =  ambientTemp- TA_SHIFT; //Reflected temperature based on the sensor ambient temperature
+      float tr =  ambientTemp - TA_SHIFT; //Reflected temperature based on the sensor ambient temperature
       //int subpage = MLX90640_GetSubPageNumber(frame);
       
       MLX90640_CalculateTo(frame, &mlx90640, emissivity, tr, image);
